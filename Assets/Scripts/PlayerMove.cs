@@ -20,15 +20,16 @@ public class PlayerMove : MonoBehaviour
         if (!Grounded)
         {
             speedMultiplier = 0.3f;
+            if (Rigidbody.velocity.x > MaxSpeed && Input.GetAxis("Horizontal") > 0)
+            {
+                speedMultiplier = 0f;
+            }
+            if (Rigidbody.velocity.x < -MaxSpeed && Input.GetAxis("Horizontal") < 0)
+            {
+                speedMultiplier = 0f;
+            }
         }
-        if (Rigidbody.velocity.x > MaxSpeed && Input.GetAxis("Horizontal") > 0)
-        {
-            speedMultiplier = 0f;
-        }
-        if (Rigidbody.velocity.x < -MaxSpeed && Input.GetAxis("Horizontal") < 0)
-        {
-            speedMultiplier = 0f;
-        }
+        
 
         if (Grounded)
         {
