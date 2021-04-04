@@ -7,7 +7,7 @@ public class Aim : MonoBehaviour
     public Transform Pointer;
     public Camera CameraPlayer;
     public Transform Body;
-
+    public float RotationSpeed;
     private void LateUpdate()
     {
         Ray ray = CameraPlayer.ScreenPointToRay(Input.mousePosition);
@@ -24,6 +24,6 @@ public class Aim : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(toAim);
 
         float y = Mathf.Clamp(toAim.x * -30f, -30f, 30f);
-        Body.rotation = Quaternion.Lerp(Body.transform.rotation, Quaternion.Euler(0f, y, 0f), 5f * Time.deltaTime);
+        Body.rotation = Quaternion.Lerp(Body.transform.rotation, Quaternion.Euler(0f, y, 0f), RotationSpeed * Time.deltaTime);
     }
 }
