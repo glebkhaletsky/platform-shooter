@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarrotSpawn : MonoBehaviour
+public class PrefabSpawn : MonoBehaviour
 {
-    public GameObject CarrotPrefab;
+    public GameObject Prefab;
     public Transform Spawn;
 
     public void Spawner()
     {
-        Instantiate(CarrotPrefab, Spawn.position, Quaternion.identity);
+        Instantiate(Prefab, Spawn.position, Spawn.rotation);
     }
 }
