@@ -11,6 +11,11 @@ public class PlayerMove : MonoBehaviour
     public bool Grounded;
     public float MaxSpeed;
 
+    [Header("JetPack")]
+    public float JetPackSpeed;
+    public JetPack JetPack;
+    public float MaxSpeedJet=10f;
+
     public Transform Capsule;
    
     private void FixedUpdate()
@@ -19,7 +24,7 @@ public class PlayerMove : MonoBehaviour
 
         if (!Grounded)
         {
-            speedMultiplier = 0.3f;
+            speedMultiplier = 0.2f;
             if (Rigidbody.velocity.x > MaxSpeed && Input.GetAxis("Horizontal") > 0)
             {
                 speedMultiplier = 0f;
@@ -38,11 +43,25 @@ public class PlayerMove : MonoBehaviour
 
         Rigidbody.AddForce(Input.GetAxis("Horizontal") * MoveSpeed * speedMultiplier, 0f, 0f, ForceMode.VelocityChange);
 
+        if (Rigidbody.velocity.y > MaxSpeedJet && JetPack.Flight==true)
+        {
+            Rigidbody.velocity = new Vector3(Rigidbody.velocity.x, MaxSpeedJet, Rigidbody.velocity.z);
+        }
 
 
     }
     private void Update()
     {
+        if (Input.GetKey(KeyCode.LeftShift) && JetPack.Active==true)
+        {
+            Rigidbody.AddForce(0, JetPackSpeed, 0, ForceMode.VelocityChange);
+            JetPack.Flight = true;
+        }
+        else
+        {
+            JetPack.Flight = false;
+        }
+
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
         {
             if (Grounded)
